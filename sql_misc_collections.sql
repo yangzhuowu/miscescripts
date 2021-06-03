@@ -1,9 +1,6 @@
-
 """
 subject: Some SQL Script Collections
-@author: ywu
 """
-
 /*626. Exchange SeatsUsing flow control statement */
 Select Case
         When id%2 = 1 AND id <> (Select max(id) From seat) Then id + 1
