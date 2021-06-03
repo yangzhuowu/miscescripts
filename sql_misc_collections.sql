@@ -20,9 +20,13 @@ Set
             When 'm' Then 'f'
             Else 'm'
     End;
-    	
-/* Q1 write a query that shows the top 3 authors who sold the most 
-# books in total*/
+ 
+/*175.  Using Left Join statement */	
+Select Person.FirstName, Person.LastName, Address.City, Address.State
+From Person Left Join Address
+On Person.PersonId = Address.PersonId;
+
+/* Q1 write a query that shows the top 3 authors who sold the most books in total*/
 SELECT authros.author_name, SUM(books.sold_copies) as sum_sold
 	FROM authors, books
 	WHERE authors.book_name = books.book_name
