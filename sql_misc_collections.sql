@@ -1,7 +1,7 @@
 """
 subject: Some SQL Script Collections
 """
-/*626. Exchange SeatsUsing flow control statement */
+/*626. Exchange Seats - using flow control statement */
 Select Case
         When id%2 = 1 AND id <> (Select max(id) From seat) Then id + 1
         When id%2 = 0 Then id - 1
@@ -10,18 +10,56 @@ Select Case
 From seat
 Order By id;
 
-/*627.  Using update and Case When (flow control statement) */
+/*626. Exchange Seats - using update and Case When (flow control statement) */
 Update Salary 
 Set
     sex = Case sex
             When 'm' Then 'f'
             Else 'm'
     End;
- 
-/*175.  Using Left Join statement */	
+	
+/*175. Swap Salary - using Left Join statement */	
 Select Person.FirstName, Person.LastName, Address.City, Address.State
 From Person Left Join Address
 On Person.PersonId = Address.PersonId;
+	
+/*176. Second Highest Salary - using subquery  */	
+Select max(Salary) as 'SecondHighestSalary'
+From Employee
+Where Salary != (Select max(em.Salary) From Employee em);
+
+/*176. Second Highest Salary - using subquery and LIMIT clause */	
+SELECT
+(SELECT DISTINCT Salary 
+    FROM Employee 
+    ORDER BY Salary DESC
+    LIMIT 1 OFFSET 1
+) AS SecondHighestSalary;
+
+/*177. Nth Highest Salary - using subquery and LIMIT clause */	
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+Declare Var Int;
+Set Var = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      Select distinct(Salary)
+      From Employee
+      Order by Salary Desc
+      Limit 1 Offset Var
+  );
+END	
+
+/*178. Rank Scores - using Dense_Rank() Over Clause */	
+Select score,
+       Dense_Rank() Over (Order By score DESC) as 'Rank'
+From Scores;
+
+/*180. Consecutive Numbers - using distinct where clause with multiple tables */
+Select DISTINCT l1.Num as 'ConsecutiveNums'
+From Logs l1, Logs l2, Logs l3
+Where l1.id = l2.id + 1 AND l2.id = l3.id + 1
+And l1.Num = l2.Num AND l2.Num = l3.Num
 
 /* Q1 write a query that shows the top 3 authors who sold the most books in total*/
 SELECT authros.author_name, SUM(books.sold_copies) as sum_sold
