@@ -1,3 +1,44 @@
+"""
+subject: Some Python Code Collections
+"""
+# 179. Largest Number - using built-in comparator function
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        if not nums:
+            return ""
+        
+        def findLargeNumber(a, b):
+            conc1 = a + b
+            conc2 = b + a
+            
+            if int(conc1) > int(conc2):
+                return -1
+            elif int(conc1) < int(conc2):
+                return 1
+            else:
+                return 0
+        
+        for i in range(len(nums)):
+            nums[i] = str(nums[i])
+        
+        ans = ''.join(sorted(nums, cmp=findLargeNumber))
+        
+        return '0' if ans[0] == '0' else ans
+        
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        nums = [str(x) for x in nums]
+        nums.sort(cmp=lambda x, y: cmp(y+x, x+y))
+        return ''.join(nums).lstrip('0') or '0'
+
 # Python Program to Check if a Number is a Prime Number
   def checkPrimeNumber(num):
     k = 0
