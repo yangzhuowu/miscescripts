@@ -61,7 +61,29 @@ From Logs l1, Logs l2, Logs l3
 Where l1.id = l2.id + 1 AND l2.id = l3.id + 1
 And l1.Num = l2.Num AND l2.Num = l3.Num
 
-/* Q1 write a query that shows the top 3 authors who sold the most books in total*/
+/*181. Employees Earning More Than Their Managers - using Where clause */
+Select Name as 'Employee'
+From Employee
+Where ManagerId is not NULL
+And Salary > (Select em.Salary From Employee em
+                Where em.Id = Employee.ManagerId);
+			
+/*181. Employees Earning More Than Their Managers - using Where clause with multiple tables */
+Select a.Name as 'Employee'
+From Employee a, Employee b
+Where a.ManagerId = b.Id
+And a.Salary > b.Salary;
+
+/*182. Duplicate Emails - using Group By and Having clause */
+Select Distinct(Email) From Person Group By Email Having Count(Email) > 1;
+
+/*182. Duplicate Emails - using multiple tables approach */
+Select Distinct p1.Email
+From Person p1, Person p2
+Where p1.Email = p2.Email
+And p1.Id <> p2.Id;
+
+/*Q1 write a query that shows the top 3 authors who sold the most books in total*/
 SELECT authros.author_name, SUM(books.sold_copies) as sum_sold
 	FROM authors, books
 	WHERE authors.book_name = books.book_name
@@ -69,7 +91,7 @@ SELECT authros.author_name, SUM(books.sold_copies) as sum_sold
 	ORDER BY sum_sold DESC
 	LIMIT 3;
 	
-/*Q2	write a query to find out how many users inserted more than 1000
+/*Q2 write a query to find out how many users inserted more than 1000
 # but less than 2000 images in their presentations*/
 SELECT COUNT(*) FROM 
 	(SELECT user_id, COUNT(event_date_time) AS image_per_user
@@ -77,7 +99,7 @@ SELECT COUNT(*) FROM
 	GROUP BY user_id) AS image_per_user
 	WHERE image_per_user < 2000 AND image_per_user > 1000;
 	
-/* Q3 write a query that print every department where the average salary
+/*Q3 write a query that print every department where the average salary
 # per employee is lower than 500*/
 SELECT ee.department_name, AVG(ss.salary) AS avg_salary
 	FROM employees ee, salaries ss
