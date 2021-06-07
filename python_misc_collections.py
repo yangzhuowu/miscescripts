@@ -2,6 +2,7 @@
 subject: Some Python Code Collections
 """
 # 179. Largest Number - using built-in comparator function
+# 1st method
 class Solution(object):
     def largestNumber(self, nums):
         """
@@ -28,7 +29,8 @@ class Solution(object):
         ans = ''.join(sorted(nums, cmp=findLargeNumber))
         
         return '0' if ans[0] == '0' else ans
-        
+
+# 2nd methods 
 class Solution(object):
     def largestNumber(self, nums):
         """
@@ -39,6 +41,52 @@ class Solution(object):
         nums.sort(cmp=lambda x, y: cmp(y+x, x+y))
         return ''.join(nums).lstrip('0') or '0'
 
+# 922. Sort Array By Parity II
+# 1st method
+   class Solution(object):
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        odd_list = []
+        even_list = []
+        
+        for i in nums:
+            if i % 2 == 1:
+                odd_list.append(i)
+            else:
+                even_list.append(i)
+        
+        res = [None]*(len(odd_list) + len(even_list))
+        res[::2] = even_list
+        res[1::2] = odd_list
+        
+        return res 
+
+# 2nd methods - using pointer
+class Solution(object):
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        i = 0
+        j = 1
+        
+        len_list = len(nums)
+        
+        while i < len_list and j < len_list:
+            if nums[i] % 2 == 0:
+                i += 2
+            elif nums[j] % 2 == 1:
+                j += 2
+            else:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 2
+                j += 2
+        return nums
+ 
 # Python Program to Check if a Number is a Prime Number
   def checkPrimeNumber(num):
     k = 0
