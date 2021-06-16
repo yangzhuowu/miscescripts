@@ -83,6 +83,44 @@ From Person p1, Person p2
 Where p1.Email = p2.Email
 And p1.Id <> p2.Id;
 
+/*183. Customers Who Never Order - using NOT In clause	*/
+Select Name as 'Customers'
+From Customers
+Where Id NOT IN (Select CustomerId From Orders);
+
+/*183. Customers Who Never Order - using LEFT JOIN clause	*/
+Select Customers.Name as Customers
+From Customers Left Join Orders
+On Customers.Id = Orders.CustomerId
+Where Orders.CustomerId Is NULL;
+
+/*184. Department Highest Salary - using JOIN, In clause */
+Select dep.Name as 'Department',
+       emp.Name as 'Employee',
+       emp.Salary as 'Salary'
+From Employee emp, Department dep
+Where emp.DepartmentId = dep.Id
+And (emp.DepartmentId, emp.Salary) in (Select DepartmentId, MAX(Salary)
+                                            From Employee
+                           		    GROUP BY DepartmentId);
+											
+/*196. Delete Duplicate Emails - using multiple tables approach */
+Delete p1
+From Person p1, Person p2
+Where p1.Id > p2.Id
+And p1.Email = p2.Email;
+
+/*196. Delete Duplicate Emails - using NOT IN clause */
+Delete From Person 
+Where Id NOT IN (Select * From 
+                  (Select Min(Id) From Person Group by Email) i);
+
+/*197. Rising Temperature - using Datediff, multiple tables approach */
+Select w1.id 
+From Weather w1, Weather w2
+Where w1.Temperature > w2.Temperature
+And Datediff(w1.recordDate, w2.recordDate) = 1;
+
 /*Q1 write a query that shows the top 3 authors who sold the most books in total*/
 SELECT authros.author_name, SUM(books.sold_copies) as sum_sold
 	FROM authors, books
