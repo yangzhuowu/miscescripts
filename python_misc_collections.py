@@ -1,8 +1,8 @@
 """
 subject: Some Python Code Collections
 """
-# 179. Largest Number - using built-in comparator function
-# 1st method
+#179. Largest Number - using built-in comparator function
+#1st method
 class Solution(object):
     def largestNumber(self, nums):
         """
@@ -30,7 +30,7 @@ class Solution(object):
         
         return '0' if ans[0] == '0' else ans
 
-# 2nd methods 
+#2nd methods 
 class Solution(object):
     def largestNumber(self, nums):
         """
@@ -41,8 +41,8 @@ class Solution(object):
         nums.sort(cmp=lambda x, y: cmp(y+x, x+y))
         return ''.join(nums).lstrip('0') or '0'
 
-# 922. Sort Array By Parity II
-# 1st method
+#922. Sort Array By Parity II
+#1st method
    class Solution(object):
     def sortArrayByParityII(self, nums):
         """
@@ -64,7 +64,7 @@ class Solution(object):
         
         return res 
 
-# 2nd methods - using pointer
+#2nd methods - using pointer
 class Solution(object):
     def sortArrayByParityII(self, nums):
         """
@@ -86,8 +86,32 @@ class Solution(object):
                 i += 2
                 j += 2
         return nums
+
+#976. Largest Perimeter Triangle
+class Solution(object):
+    def largestPerimeter(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums = sorted(nums)[::-1]
+        for i in range(len(nums) - 2):
+            if nums[i] < nums[i + 1] + nums[i + 2]:
+                return nums[i] + nums[i + 1] + nums[i + 2]
+        return 0
+        
+#1122. Relative Sort Array
+class Solution(object):
+    def relativeSortArray(self, arr1, arr2):
+        """
+        :type arr1: List[int]
+        :type arr2: List[int]
+        :rtype: List[int]
+        """
+        hm = {v: k  for k, v in enumerate(arr2)}
+        return sorted(arr1, key=lambda i: hm.get(i, 1000 + i))
  
-# Python Program to Check if a Number is a Prime Number
+#Python Program to Check if a Number is a Prime Number
   def checkPrimeNumber(num):
     k = 0
     for i in range(2, num//2+1):
@@ -102,7 +126,7 @@ class Solution(object):
     else:
         print('Number is Non-Prime')
         
-# Python Program to Check if a Number is an Armstrong Number    
+#Python Program to Check if a Number is an Armstrong Number    
    def checkArmstrongNumber(num):
     ls = list(map(int, str(num)))
     n = len(ls)
@@ -113,7 +137,7 @@ class Solution(object):
     else:
         print('Number is Non-Armstrong Number')
 
-# Python Program to Check if a Number is a Perfect Number  
+#Python Program to Check if a Number is a Perfect Number  
   def checkPerfectNumber(num):
     sumnum = 0
     for i in range(1, num):
@@ -126,7 +150,7 @@ class Solution(object):
     else:
         print('Number is Non-Perfect Number')
  
- # Python Program to Check if a Number is a Strong Number
+ #Python Program to Check if a Number is a Strong Number
  import math
   def checkStrongNumber(num):
     sumnum = 0
@@ -138,7 +162,7 @@ class Solution(object):
     else:
         print('Number is Non-Strong Number')
    
- # Python Program to Check if a String is a Palindrome or Not
+ #Python Program to Check if a String is a Palindrome or Not
  def checkPalindrome(word):
     if str(word.lower()) == str(word.lower())[::-1]:
         print("The string is a Palindrome")
