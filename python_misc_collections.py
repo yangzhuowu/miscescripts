@@ -110,6 +110,15 @@ class Solution(object):
         """
         hm = {v: k  for k, v in enumerate(arr2)}
         return sorted(arr1, key=lambda i: hm.get(i, 1000 + i))
+    
+ #1356. Sort Integers by The Number of 1 Bits - Bit Manipulation
+class Solution(object):
+    def sortByBits(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: List[int]
+        """
+        return sorted(arr, key=lambda i: [bin(i).count('1'), i])
  
 #Python Program to Check if a Number is a Prime Number
   def checkPrimeNumber(num):
